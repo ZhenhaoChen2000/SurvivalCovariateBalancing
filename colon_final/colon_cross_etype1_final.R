@@ -27,7 +27,7 @@ sbwbal <- function(X, Tr){
   character   <- names(data.matrix)
   bal$bal_cov <- character[1:dimension]
   sbw.result <- FALSE
-  ######sbw的output有15项，若未输出正确结果则将bal_grid的搜索范围减少1项
+  
   while(sum(dim(as.matrix(sbw.result))) != 15){
     sbw.result  <- tryCatch(sbw.result <- sbw(dat = data.matrix, ind = character[1 + dimension], bal = bal, out = character[2 + dimension], par = list(par_est = "ate")), error = function(e) { skip_to_next <<- FALSE})
     bal$bal_gri <- bal$bal_gri[-1]
@@ -463,7 +463,7 @@ trt<-notna.colon$rx#?õ?treatment
 extent_cate_dum<-class.ind(notna.colon$extent)
 extent_cate<-data.frame('extent2'=extent_cate_dum[,2],'extent3'=extent_cate_dum[,3],'extent4'=extent_cate_dum[,4])
 
-differ_cate_dum<-class.ind(notna.colon$differ)#ȡ��?м???
+differ_cate_dum<-class.ind(notna.colon$differ)
 differ_cate<-data.frame('differ2'=differ_cate_dum[,2],'differ3'=differ_cate_dum[,3]);
 
 notna.colon$nodes<-log(notna.colon$nodes+1)
@@ -655,7 +655,7 @@ se_ci_imp<-cbind(weight=rep(c('Unad','IPW','EBAL','CBPS','Energy','Kernel','MDAB
                  CI=paste(
                    paste(
                      paste('(',se_ci_imp$rmst_diff_low),se_ci_imp$rmst_diff_upp,sep = ','),')'))
-write.csv(file = 'D:/covariates balancing/MB_new_latex/colon/crossmore/se_ci_colon_cross_etype1.csv',x=se_ci_imp)
+write.csv(file = 'se_ci_colon_cross_etype1.csv',x=se_ci_imp)
 
 #trend with tau plot
 #get value====
@@ -795,7 +795,7 @@ p3 <- ggplot() +
   labs(x = "Time (days)", y = "Restricted Mean Survival Time Difference")
 
 
-png("D:/covariates balancing/MB_new_latex/colon/crossmore/rmst_colon_cross_etype1.png",
+png("rmst_colon_cross_etype1.png",
     width = 8, height = 5.6, units = "in", res = 1000)
 
 ggarrange(
@@ -945,7 +945,7 @@ p_ASMD <- ggplot(plot_dat_ASMD_long, aes(x = variable, y = asmd)) +
                      breaks = c(0,0.05,0.1,0.15,0.2,0.25,0.3)) +
   coord_flip()
 
-png("D:/covariates balancing/MB_new_latex/colon/crossmore/ASMD_colon_cross_etype1.png", width = 6.4, height = 6.4, units = "in", res = 1000)
+png("ASMD_colon_cross_etype1.png", width = 6.4, height = 6.4, units = "in", res = 1000)
 print(p_ASMD)
 dev.off()
 
@@ -1029,7 +1029,7 @@ plot.GASMD_IMP <- ggplot(plot_dat2_long, aes(x = variable, y = imbal)) +
         plot.subtitle = element_text(hjust = 0.5)) +
   geom_hline(yintercept = 0, linetype = "solid", color = "black")
 
-png("D:/covariates balancing/MB_new_latex/colon/crossmore/GASMD_notna_cross_etype1.png",
+png("GASMD_notna_cross_etype1.png",
     width = 6.4, height = 6.4, units = "in", res = 1000)
 print(plot.GASMD_IMP)
 dev.off()
