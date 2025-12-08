@@ -1,5 +1,5 @@
 ##To solve the optimization problem in sbw, the default solver requires 'osqp' packages, which may require to install cmake
-##load hcc data in Line 869
+
 
 rm(list = ls())
 #load function========
@@ -369,35 +369,6 @@ weight.esti <- function(X, Tr, delta.space = c(1,1e-2,1e-4)){
   kernel.imbalance <- Imbalance(X = X, Tr = Tr, w = kernel.weight)
   MDABW.imbalance  <- Imbalance(X = X, Tr = Tr, w = MDABW.weight)
   
-  unad.asmd<-    MAXASMD(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.asmd     <- MAXASMD(X = X, Tr = Tr, w = ps.weight)
-  ebal.asmd   <- MAXASMD(X = X, Tr = Tr, w = ebal.weight)
-  cbps.asmd   <- MAXASMD(X = X, Tr = Tr, w = cbps.weight)
-  energy.asmd <- MAXASMD(X = X, Tr = Tr, w = energy.weight)
-  MB.asmd     <- MAXASMD(X = X, Tr = Tr, w = MB.weight)
-  
-  kernel.asmd <- MAXASMD(X = X, Tr = Tr, w = kernel.weight)
-  MDABW.asmd  <- MAXASMD(X = X, Tr = Tr, w = MDABW.weight)
-  
-  #gasmd: binary not standardized
-  unad.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.imbalance.bi.nostd     <- Imbalance_bi_not_std(X = X, Tr = Tr, w = ps.weight)
-  ebal.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = ebal.weight)
-  cbps.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = cbps.weight)
-  energy.imbalance.bi.nostd <- Imbalance_bi_not_std(X = X, Tr = Tr, w = energy.weight)
-  kernel.imbalance.bi.nostd <- Imbalance_bi_not_std(X = X, Tr = Tr, w = kernel.weight)
-  MB.imbalance.bi.nostd     <- Imbalance_bi_not_std(X = X, Tr = Tr, w = MB.weight)
-  MDABW.imbalance.bi.nostd  <- Imbalance_bi_not_std(X = X, Tr = Tr, w = MDABW.weight)
-  
-  #asmd: binary standardized
-  unad.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.asmd.bi.std     <- MAXASMD_bin_std(X = X, Tr = Tr, w = ps.weight)
-  ebal.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = ebal.weight)
-  cbps.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = cbps.weight)
-  energy.asmd.bi.std <- MAXASMD_bin_std(X = X, Tr = Tr, w = energy.weight)
-  kernel.asmd.bi.std <- MAXASMD_bin_std(X = X, Tr = Tr, w = kernel.weight)
-  MB.asmd.bi.std     <- MAXASMD_bin_std(X = X, Tr = Tr, w = MB.weight)
-  MDABW.asmd.bi.std  <- MAXASMD_bin_std(X = X, Tr = Tr, w = MDABW.weight)
   
   return(list(ps = ps.weight, ebal = ebal.weight, cbps = cbps.weight, 
               energy = energy.weight, MB = MB.weight, kernel=kernel.weight, MDABW=MDABW.weight,
@@ -406,18 +377,8 @@ weight.esti <- function(X, Tr, delta.space = c(1,1e-2,1e-4)){
                                   group3 = MB3.result$parameter),
               Imbalance = list(unad = unad.imbalance, ps = ps.imbalance, 
                                ebal = ebal.imbalance, cbps = cbps.imbalance, 
-                               energy = energy.imbalance, MB = MB.imbalance, kernel=kernel.imbalance, MDABW=MDABW.imbalance),
-              MAXASMD = list (unad = unad.asmd, ps = ps.asmd, 
-                              ebal = ebal.asmd, cbps = cbps.asmd,
-                              energy = energy.asmd, MB = MB.asmd, kernel = kernel.asmd, MDABW = MDABW.asmd),
-              Imbalance_bi_notstd = list (unad = unad.imbalance.bi.nostd, ps = ps.imbalance.bi.nostd, 
-                                          ebal = ebal.imbalance.bi.nostd, cbps = cbps.imbalance.bi.nostd, 
-                                          energy = energy.imbalance.bi.nostd, kernel = kernel.imbalance.bi.nostd,
-                                          MB = MB.imbalance.bi.nostd, MDABW=MDABW.imbalance.bi.nostd),
-              MAXASMD_bin_std= list (unad = unad.asmd.bi.std, ps = ps.asmd.bi.std, 
-                                      ebal = ebal.asmd.bi.std, cbps = cbps.asmd.bi.std,
-                                      energy = energy.asmd.bi.std, MB = MB.asmd.bi.std, 
-                                      kernel = kernel.asmd.bi.std, MDABW = MDABW.asmd.bi.std)
+                               energy = energy.imbalance, MB = MB.imbalance, kernel=kernel.imbalance, MDABW=MDABW.imbalance)
+             
   )
   )
 }
@@ -478,32 +439,6 @@ weight.esti.nokernel <- function(X, Tr, delta.space = c(1,1e-2,1e-4)){
   MB.imbalance     <- Imbalance(X = X, Tr = Tr, w = MB.weight)
   MDABW.imbalance  <- Imbalance(X = X, Tr = Tr, w = MDABW.weight)
   
-  #asmd: binary not standardized
-  unad.asmd<-    MAXASMD(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.asmd     <- MAXASMD(X = X, Tr = Tr, w = ps.weight)
-  ebal.asmd   <- MAXASMD(X = X, Tr = Tr, w = ebal.weight)
-  cbps.asmd   <- MAXASMD(X = X, Tr = Tr, w = cbps.weight)
-  energy.asmd <- MAXASMD(X = X, Tr = Tr, w = energy.weight)
-  MB.asmd     <- MAXASMD(X = X, Tr = Tr, w = MB.weight)
-  MDABW.asmd  <- MAXASMD(X = X, Tr = Tr, w = MDABW.weight)
-  
-  #gasmd: binary not standardized
-  unad.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.imbalance.bi.nostd     <- Imbalance_bi_not_std(X = X, Tr = Tr, w = ps.weight)
-  ebal.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = ebal.weight)
-  cbps.imbalance.bi.nostd   <- Imbalance_bi_not_std(X = X, Tr = Tr, w = cbps.weight)
-  energy.imbalance.bi.nostd <- Imbalance_bi_not_std(X = X, Tr = Tr, w = energy.weight)
-  MB.imbalance.bi.nostd     <- Imbalance_bi_not_std(X = X, Tr = Tr, w = MB.weight)
-  MDABW.imbalance.bi.nostd  <- Imbalance_bi_not_std(X = X, Tr = Tr, w = MDABW.weight)
-  
-  #asmd: binary standardized
-  unad.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = rep(1,sample.size))
-  ps.asmd.bi.std     <- MAXASMD_bin_std(X = X, Tr = Tr, w = ps.weight)
-  ebal.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = ebal.weight)
-  cbps.asmd.bi.std   <- MAXASMD_bin_std(X = X, Tr = Tr, w = cbps.weight)
-  energy.asmd.bi.std <- MAXASMD_bin_std(X = X, Tr = Tr, w = energy.weight)
-  MB.asmd.bi.std     <- MAXASMD_bin_std(X = X, Tr = Tr, w = MB.weight)
-  MDABW.asmd.bi.std  <- MAXASMD_bin_std(X = X, Tr = Tr, w = MDABW.weight)
   return(list(ps = ps.weight, ebal = ebal.weight, cbps = cbps.weight, 
               energy = energy.weight, MB = MB.weight, MDABW=MDABW.weight,
               MB.parameter = list(group1 = MB1.result$parameter, 
@@ -511,19 +446,11 @@ weight.esti.nokernel <- function(X, Tr, delta.space = c(1,1e-2,1e-4)){
                                   group3 = MB3.result$parameter),
               Imbalance = list(unad = unad.imbalance, ps = ps.imbalance, 
                                ebal = ebal.imbalance, cbps = cbps.imbalance, 
-                               energy = energy.imbalance, MB = MB.imbalance, MDABW=MDABW.imbalance),
-              MAXASMD = list (unad = unad.asmd, ps = ps.asmd, 
-                              ebal = ebal.asmd, cbps = cbps.asmd,
-                              energy = energy.asmd, MB = MB.asmd, MDABW = MDABW.asmd),
-              Imbalance_bi_notstd = list (unad = unad.imbalance.bi.nostd, ps = ps.imbalance.bi.nostd, 
-                                          ebal = ebal.imbalance.bi.nostd, cbps = cbps.imbalance.bi.nostd, 
-                                          energy = energy.imbalance.bi.nostd, MB = MB.imbalance.bi.nostd, MDABW=MDABW.imbalance.bi.nostd),
-              MAXASMD_bin_std= list (unad = unad.asmd.bi.std, ps = ps.asmd.bi.std, 
-                                     ebal = ebal.asmd.bi.std, cbps = cbps.asmd.bi.std,
-                                     energy = energy.asmd.bi.std, MB = MB.asmd.bi.std, MDABW = MDABW.asmd.bi.std)
+                               energy = energy.imbalance, MB = MB.imbalance, MDABW=MDABW.imbalance)
   )
   )
 }
+
 #all variables are standardized when calculating GASMD
 Imbalance <- function(X,Tr,w){
   X <- scale(X)
@@ -531,177 +458,6 @@ Imbalance <- function(X,Tr,w){
     abs(t(X[Tr == 2,]) %*% w[Tr == 2] / sum(w[Tr == 2])) + 
     abs(t(X[Tr == 3,]) %*% w[Tr == 3] / sum(w[Tr == 3]))
 }
-
-#Imbalance_alt and Imbalance are equavalent
-Imbalance_alt<- function(X,Tr,w){
-  abs((t(X[Tr == 1,]) %*% w[Tr == 1]/sum(w[Tr == 1])-colMeans(X))/sqrt(diag(var(X)))) + 
-    abs((t(X[Tr == 2,]) %*% w[Tr == 2]/sum(w[Tr == 2])-colMeans(X))/sqrt(diag(var(X))))+
-    abs((t(X[Tr == 3,]) %*% w[Tr == 3]/sum(w[Tr == 3])-colMeans(X))/sqrt(diag(var(X))))
-}
-
-#only continous variables are standardized when calculating GASMD
-
-Imbalance_bi_not_std <- function(X, Tr, w){
-  X <- as.data.frame(X)
-  groups <- sort(unique(Tr))
-  
-  out <- sapply(seq_along(X), function(j){
-    xj <- X[[j]]
-    # whether the variable is binary
-    uniq_vals <- unique(na.omit(xj))
-    if(length(uniq_vals) == 2){
-      mu <- mean(xj, na.rm = TRUE)
-      sdv <- 1   # binary: do not standardize
-    } else {
-      mu <- mean(xj, na.rm = TRUE)
-      sdv <- sd(xj, na.rm = TRUE)
-    }
-    
-    #  standardized difference
-    diffs <- sapply(groups, function(g){
-      wg_mean <- sum(xj[Tr == g] * w[Tr == g]) / sum(w[Tr == g])
-      (wg_mean - mu) / sdv
-    })
-    
-    sum(abs(diffs))  
-  })
-  
-  names(out) <- names(X)
-
-  return(out)
-}
-
-
-#####calculate cobalt-type ASMD, binary variables: absolute difference
-MAXASMD <- function(X, Tr, w = NULL) {
-  if (is.null(w)) w <- rep(1, length(Tr))
-  if (is.vector(X)) X <- as.matrix(X)   
-  if (is.data.frame(X)) X <- as.matrix(X)
-  
-  groups <- sort(unique(Tr))
-  G <- length(groups)
-  p <- ncol(X)   # number of covariates
-  
-  max_asmds <- numeric(p)
-  
-  for (v in 1:p) {
-    x <- X[, v]
-    
-    means <- numeric(G)
-    vars  <- numeric(G)
-    for (k in 1:G) {
-      idx <- (Tr == groups[k])
-      mu  <- sum(w[idx] * x[idx]) / sum(w[idx])
-      means[k] <- mu
-      vars[k]  <- var(x[idx])
-    }
-    
-    
-    # pooled SD
-    # average of variance from all treatment group 
-    # instead of using variance from the treatment group being compared only
-    pooled_sd <- sqrt(mean(vars))
-    
-    # whether the variable is binary
-    is_binary <- length(unique(x)) == 2
-    
-    if (is_binary) {
-      # binary: ASMD = absolute mean difference
-      pooled_sd <- 1  #need not to standardize(according to "cobalt")
-    } else {
-      # continous variables: standardized mean difference
-      pooled_sd <- sqrt(mean(vars))
-    }
-    
-    # pairwise ASMD, obtain max ASMD
-    max_asmd <- 0
-    for (i in 1:(G-1)) {
-      for (j in (i+1):G) {
-        asmd <- abs((means[i] - means[j]) / pooled_sd)
-        if (asmd > max_asmd) max_asmd <- asmd
-      }
-    }
-    max_asmds[v] <- max_asmd
-  }
-  
-  res <- matrix(max_asmds, ncol = 1)
-  rownames(res) <- colnames(X)
-  
-  return(res)
-  
-}
- 
-
-#####calculate cobalt-type ASMD, binary variables: standardize difference
-MAXASMD_bin_std <- function(X, Tr, w = NULL) {
-  if (is.null(w)) w <- rep(1, length(Tr))
-  if (is.vector(X)) X <- as.matrix(X)   
-  if (is.data.frame(X)) X <- as.matrix(X)
-  
-  groups <- sort(unique(Tr))
-  G <- length(groups)
-  p <- ncol(X)   # number of covariates
-  
-  max_asmds <- numeric(p)
-  
-  for (v in 1:p) {
-    x <- X[, v]
-    
-    means <- numeric(G)
-    vars  <- numeric(G)
-    vars_alt  <- numeric(G)
-    for (k in 1:G) {
-      idx <- (Tr == groups[k])
-      mu  <- sum(w[idx] * x[idx]) / sum(w[idx])
-      means[k] <- mu
-      vars[k]  <- var(x[idx])
-      vars_alt[k]<- mean(x[idx])*(1-mean(x[idx]))
-    }
-    
-    
-    # pooled SD
-    # average of variance from all treatment group 
-    # instead of using variance from the treatment group being compared only
-    pooled_sd <- sqrt(mean(vars))
-    
-    # whether the variable is binary
-    is_binary <- length(unique(x)) == 2
-    
-    if (is_binary) {
-      # binary: ASMD = absolute mean difference
-      pooled_sd <-  sqrt(mean(vars_alt)) #need not to standardize(according to "cobalt")
-    } else {
-      # continous variables: standardized mean difference
-      pooled_sd <- sqrt(mean(vars))
-    }
-    
-    # pairwise ASMD, obtain max ASMD
-    max_asmd <- 0
-    for (i in 1:(G-1)) {
-      for (j in (i+1):G) {
-        asmd <- abs((means[i] - means[j]) / pooled_sd)
-        if (asmd > max_asmd) max_asmd <- asmd
-      }
-    }
-    max_asmds[v] <- max_asmd
-  }
-  
-  res <- matrix(max_asmds, ncol = 1)
-  rownames(res) <- colnames(X)
-  
-  return(res)
-  
-}
-
-#generate data.
-#X denotes observed covariate.
-#Tr denotes treatment indicator, where 1,2,3 represent group1,group2,group3.
-#Propensity score model:
-#Pr(Tr = 1 \mid X) = 1 / (1 + \exp(\beta^{\top} X[1:5]) + \exp(\beta^{\top} X[6:10])).
-#Pr(Tr = 2 \mid X) = \exp(\beta^{\top} X[1:5]) / (1 + \exp(\beta^{\top} X[1:5]) + \exp(\beta^{\top} X[6:10])).
-#Pr(Tr = 3 \mid X) = \exp(\beta^{\top} X[6:10]) / (1 + \exp(\beta^{\top} X[1:5]) + \exp(\beta^{\top} X[6:10])).
-#\beta = (1,1,1,1,1)&{\top}
-
 
 akm_rmst <- function(time, status, group, weight=NULL, tau=NULL, alpha=.05, 
                      xaxismin=0, xaxismax=max(time)){
@@ -866,7 +622,7 @@ library(survminer)
 library(nnet)
 library(survival)
 ##################################load the HCC data
-hcc<-read.csv('D:/covariates balancing/MB all/Code/real data application/HCC/hcc.csv')
+hcc<-read.csv('hcc.csv')
 head(hcc)
 group<-hcc$Group
 group_cate_dum<-class.ind(hcc$Group)
@@ -1215,154 +971,11 @@ crete_formula   <- as.formula(paste(chara1[3],
                                     paste(" ~ ", paste(chara1[4:ncolume1], 
                                                        collapse= "+"))))
 #names(datcrete_con_weight)<-c('IPW','EBAL','CBPS','ENERGY','MB')
-###love.plot_discrete_variables====
+
+
 library(cobalt)
 plot_datcrete<-dat_discrete
 plot_datcrete$trt<-factor(plot_datcrete$trt)
-plot.ASMD1 <- love.plot(crete_formula, data = plot_datcrete, estimand = "ATE",
-                        stats = c("mean.diffs"),
-                        stars = "raw",
-                        weights = list(w1 = datcrete_con_weight$MB,
-                                       w2 = datcrete_con_weight$ps,
-                                       w3 = datcrete_con_weight$ebal,
-                                       w4 = datcrete_con_weight$cbps,
-                                       w5 = datcrete_con_weight$energy,
-                                       w6 = datcrete_con_weight$kernel,
-                                       w7 = datcrete_con_weight$MDABW),
-                        var.order = "unadjusted",
-                        no.missing=F,
-                        abs = TRUE,
-                        line = FALSE, 
-                        shapes = c(15:18,3,4,5,6),
-                        colors = c('skyblue','blue','black','orange','red','green','#D55E00','#CC79A7'),
-                        thresholds = c(m = .1),
-                        sample.names = c('UNAD','MB','IPW','EBAL','CBPS','ENERGY',"KERNEL","MDABW"),
-                        limits = list(m = c(0,1)),
-                        wrap = 20,
-                        position = "top")
-
-png("ASMD_imp.png",width = 6.4, height = 6.4, units = "in", res = 1000)
-plot.ASMD1
-dev.off()
-
-###notice that 
-##The default balance statistic for mean differences for continuous variables is the standardized mean difference, 
-#which is the difference in the means divided by a measure of spread
-##!!! the pooled SD is the square root of the average of the variances of the covariates in the three!!! treatment groups
-##For binary variables, the default balance statistic is the raw difference in proportion.
-
-# plot asmd using asmd calculated manually
-library(dplyr)
-library(ggplot2)
-
-
-library(dplyr)
-library(ggplot2)
-
-plot_datcrete_ASMD <- data.frame(datcrete_con_weight$MAXASMD)
-
-ASMD_crete <- c(plot_datcrete_ASMD[,1],
-                plot_datcrete_ASMD[,6],
-                plot_datcrete_ASMD[,2],
-                plot_datcrete_ASMD[,3],
-                plot_datcrete_ASMD[,4],
-                plot_datcrete_ASMD[,5],
-                plot_datcrete_ASMD[,7],
-                plot_datcrete_ASMD[,8])
-
-
-groupcrete_ASMD <- rep(c('UNAD','MB','IPW','EBAL','CBPS','ENERGY','KERNEL','MDABW'),
-                       each = nrow(plot_datcrete_ASMD))
-
-varnames <- rownames(plot_datcrete_ASMD)
-
-plot_datcrete_ASMD2new <- data.frame(
-  id = rep(1:nrow(plot_datcrete_ASMD), 8),
-  variable = rep(varnames, 8),
-  ASMD_ord = ASMD_crete,
-  asmd = pmin(1, ASMD_crete),
-  weight = groupcrete_ASMD,
-  stringsAsFactors = FALSE
-)
-
-
-shape_map <- c(
-  UNAD  = 15,
-  MB    = 16,
-  IPW   = 17,
-  EBAL  = 18,
-  CBPS  = 3,
-  ENERGY= 4,
-  KERNEL= 5,
-  MDABW = 6
-)
-
-color_map <- c(
-  UNAD  = 'skyblue',
-  MB    = 'blue',
-  IPW   = 'black',
-  EBAL  = 'orange',
-  CBPS  = 'red',
-  ENERGY= 'green',
-  KERNEL= '#D55E00',
-  MDABW = '#CC79A7'
-)
-
-desired_levels <- c('UNAD','ENERGY','IPW','KERNEL','CBPS','MDABW','EBAL','MB')
-
-plot_datcrete_ASMD2new$weight <- factor(plot_datcrete_ASMD2new$weight,
-                                        levels = desired_levels)
-
-
-order_unad <- plot_datcrete_ASMD2new %>%
-  filter(weight == "UNAD") %>%
-  arrange(ASMD_ord) %>%
-  pull(variable)
-
-plot_datcrete_ASMD2new$variable <- factor(plot_datcrete_ASMD2new$variable, levels = order_unad)
-
-
-p <- ggplot(plot_datcrete_ASMD2new, aes(x = variable, y = asmd)) +
-  geom_point(aes(color = weight, shape = weight), size = 3) +
-  scale_shape_manual(values = shape_map) +
-  scale_color_manual(values = color_map) +
-  labs(color = 'Method', shape = 'Method',
-       title = "Covariate Balance",
-       subtitle = "Generalized Absolute Standardized Mean Difference",
-       x = NULL, y = "Generalized Absolute Standardized Mean Difference") +
-  theme(panel.background = element_rect(fill = "white"),
-        axis.text.x = element_text(color = "black"),
-        axis.text.y = element_text(color = "black"),
-        panel.border = element_rect(fill = NA, color = "black"),
-        legend.position = "top",
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5)) +
-  geom_hline(yintercept = 0.1, linetype = "dashed", color = "black") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black") +
-  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.1, 0.25, 0.5, 0.75, 1.0)) +
-  coord_flip()
-
-png("ASMD_imp_manual_fixed.png", width = 6.4, height = 6.4, units = "in", res = 1000)
-print(p)
-dev.off()
-
-
-#save manully calculated asmd
-asmd_manul_imp <- data.frame(
-  Variable = rownames(datcrete_con_weight$MAXASMD$unad),
-  Unadjusted = datcrete_con_weight$MAXASMD$unad,
-  PS = datcrete_con_weight$MAXASMD$ps,
-  EBAL = datcrete_con_weight$MAXASMD$ebal,
-  CBPS = datcrete_con_weight$MAXASMD$cbps,
-  ENERGY = datcrete_con_weight$MAXASMD$energy,
-  KERNEL = datcrete_con_weight$MAXASMD$kernel,
-  MDABW = datcrete_con_weight$MAXASMD$MDABW,
-  MB = datcrete_con_weight$MAXASMD$MB
-)
-write.csv(file = 'asmd_manul_imp.csv',x=asmd_manul_imp[,1:9])
-
-
-
 
 # obtain asmd from bal.tab function
 plot_datcrete_ASMD_baltab <-  data.frame(
@@ -1620,16 +1233,6 @@ log_allcrete<-dat_all_crete
 log_allcrete[,c(7,24:28,30:32)]<-log(dat_all_crete[,c(7,24:28,30:32)])
 dat_all_crete<-log_allcrete
 
-#add_square
-#dat_all_crete$age_sq   <- dat_all_crete$age^2
-#dat_all_crete$GGT_sq   <- dat_all_crete$GGT^2
-#dat_all_crete$ALB_sq   <- dat_all_crete$ALB^2
-#dat_all_crete$Cr_sq    <- dat_all_crete$Cr^2
-#dat_all_crete$PT_sq    <- dat_all_crete$PT^2
-#dat_all_crete$PLT_sq   <- dat_all_crete$PLT^2
-#dat_all_crete$AST_sq   <- dat_all_crete$AST^2
-#dat_all_crete$TBIL_sq  <- dat_all_crete$TBIL^2
-#dat_all_crete$ALP_sq   <- dat_all_crete$ALP^2
 
 ###the ps score corresponding to individual 109 is 2.439892e+06
 dat_all_crete<-dat_all_crete[-109,]
@@ -1637,9 +1240,6 @@ dat_all_crete<-dat_all_crete[-109,]
 #names(dat_discrete)=c(names(dat_discrete)[1:7],"logAFP",names(dat_discrete)[9:16])
 
 allcrete_con_weight<-weight.esti.nokernel(dat_all_crete[,-c(1:3)],dat_all_crete$trt)
-#Warning messages:
-#1: Some weights were estimated as NA, which means a value was impossible to compute (e.g., Inf). Check for extreme values of the treatment or covariates and try removing them. Non-finite weights will be set to 0. 
-#2: All weights are NA or 0 in treatment group '2'. 
 
 #save allcrete_weight
 all_wei_table<-cbind(ps_wei_all=allcrete_con_weight$ps,ebal_wei_all=allcrete_con_weight$ebal,
@@ -1938,162 +1538,11 @@ ncolume2<-ncol(dat_all_crete)
 allcrete_formula   <- as.formula(paste(chara2[3],
                                        paste(" ~ ", paste(chara2[4:ncolume2], 
                                                           collapse= "+"))))
-#https://ngreifer.github.io/cobalt/articles/cobalt_A4_love.plot.html
-plot_dat2<-dat_all_crete
-plot_dat2$trt<-factor(plot_dat2$trt)##??һ????Ҫ??????
-plot.ASMD2 <- love.plot(allcrete_formula, data = plot_dat2, estimand = "ATE",
-                        stats = c("mean.diffs"),
-                        stars = "raw",
-                        weights = list(w1 = allcrete_con_weight$MB,
-                                       w2 = allcrete_con_weight$ps,
-                                       w3 = allcrete_con_weight$ebal,
-                                       w4 = allcrete_con_weight$cbps,
-                                       w5 = allcrete_con_weight$energy,
-                                       w6 = allcrete_con_weight$MDABW),
-                        var.order = "unadjusted",
-                        no.missing=T,
-                        abs = TRUE,
-                        line = FALSE, 
-                        shapes = c(15:18,3,4,6),
-                        colors = c('skyblue','blue','black','orange','red','green','#CC79A7'),
-                        thresholds = c(m = .1),
-                        sample.names = c("UNAD", "MB", "IPW", "EBAL", "CBPS", "ENERGY","MDABW"),
-                        limits = list(m = c(0,1)
-                        ),
-                        wrap = 100,
-                        position = "top")
-
-png("ASMD_all.png",width = 6.4, height = 6.4, units = "in", res = 1000)
-plot.ASMD2
-dev.off()
-
-
-plot_allcrete_ASMD <- data.frame(allcrete_con_weight$MAXASMD)
-
-ASMD_allcrete_man <- c(plot_allcrete_ASMD[,1],  # UNAD
-                       plot_allcrete_ASMD[,6],  # MB
-                       plot_allcrete_ASMD[,2],  # IPW
-                       plot_allcrete_ASMD[,3],  # EBAL
-                       plot_allcrete_ASMD[,4],  # CBPS
-                       plot_allcrete_ASMD[,5],  # ENERGY
-                       plot_allcrete_ASMD[,7])  # MDABW
-
-group_allcrete_man_ASMD <- rep(c('UNAD','MB','IPW','EBAL','CBPS','ENERGY','MDABW'),
-                               each = nrow(plot_allcrete_ASMD))
-
-varnames_allcrete_man_ASMD <- rownames(plot_allcrete_ASMD)
-
-plot_allcrete_ASMD2new <- data.frame(
-  id = rep(1:nrow(plot_allcrete_ASMD), 7),
-  variable = rep(varnames_allcrete_man_ASMD, 7),
-  asmd = pmin(1, ASMD_allcrete_man),
-  ASMD_ord = ASMD_allcrete_man,
-  weight = group_allcrete_man_ASMD,
-  stringsAsFactors = FALSE
-)
-
-
-desired_levels <- c('UNAD','ENERGY','IPW','MDABW','CBPS','MB','EBAL')
-
-
-color_map <- c(
-  UNAD  = 'skyblue',
-  ENERGY= 'green',
-  IPW   = 'black',
-  MDABW = '#CC79A7',
-  CBPS  = 'red',
-  MB    = 'blue',
-  EBAL  = 'orange'
-)
-
-
-shape_map <- c(
-  UNAD  = 15,
-  ENERGY= 4,
-  IPW   = 17,
-  MDABW = 6,
-  CBPS  = 3,
-  MB    = 16,
-  EBAL  = 18
-)
-
-
-plot_allcrete_ASMD2new$weight <- factor(plot_allcrete_ASMD2new$weight,
-                                        levels = desired_levels)
-
-
-order_unad <- plot_allcrete_ASMD2new %>%
-  filter(weight == "UNAD") %>%
-  arrange(ASMD_ord) %>%
-  pull(variable)
-
-plot_allcrete_ASMD2new$variable <- factor(plot_allcrete_ASMD2new$variable,
-                                          levels = order_unad)
-
-
-p_all_man <- ggplot(plot_allcrete_ASMD2new, aes(x = variable, y = asmd)) +
-  geom_point(aes(color = weight, shape = weight), size = 3) +
-  scale_shape_manual(values = shape_map) +
-  scale_color_manual(values = color_map) +
-  labs(color = 'Method', shape = 'Method',
-       title = "Covariate Balance",
-       subtitle = "Generalized Absolute Standardized Mean Difference",
-       x = NULL, y = "Generalized Absolute Standardized Mean Difference") +
-  theme(panel.background = element_rect(fill = "white"),
-        axis.text.x = element_text(color = "black"),
-        axis.text.y = element_text(color = "black"),
-        panel.border = element_rect(fill = NA, color = "black"),
-        legend.position = "top",
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5)) +
-  geom_hline(yintercept = 0.1, linetype = "dashed", color = "black") +
-  geom_hline(yintercept = 0, linetype = "solid", color = "black") +
-  scale_y_continuous(limits = c(0,1),
-                     breaks = c(0, 0.1, 0.25, 0.5, 0.75, 1.0)) +
-  coord_flip()
-
-
-png("ASMD_all_manual.png", width = 6.4, height = 6.4, units = "in", res = 1000)
-print(p_all_man)
-dev.off()
-
-
-#Warnings: Removed 3 rows containing missing values or values outside the scale range
-## some asmd values exceed xlim=(0,1)
-
-#save manully calculated asmd
-asmd_manul_all <- data.frame(
-  Variable = rownames(allcrete_con_weight$MAXASMD$unad),
-  Unadjusted = allcrete_con_weight$MAXASMD$unad,
-  PS = allcrete_con_weight$MAXASMD$ps,
-  EBAL = allcrete_con_weight$MAXASMD$ebal,
-  CBPS = allcrete_con_weight$MAXASMD$cbps,
-  ENERGY = allcrete_con_weight$MAXASMD$energy,
-  MDABW = allcrete_con_weight$MAXASMD$MDABW,
-  MB = allcrete_con_weight$MAXASMD$MB
-)
-write.csv(file = 'asmd_manul_all.csv',x=asmd_manul_all[,2:8])
-
-
-
-
-library(ggplot2)
-library(dplyr)
-
-# save manually calculated asmd
-asmd_manul_all <- data.frame(
-  Variable = rownames(allcrete_con_weight$MAXASMD$unad),
-  Unadjusted = allcrete_con_weight$MAXASMD$unad,
-  PS = allcrete_con_weight$MAXASMD$ps,
-  EBAL = allcrete_con_weight$MAXASMD$ebal,
-  CBPS = allcrete_con_weight$MAXASMD$cbps,
-  ENERGY = allcrete_con_weight$MAXASMD$energy,
-  MDABW = allcrete_con_weight$MAXASMD$MDABW,
-  MB = allcrete_con_weight$MAXASMD$MB
-)
-write.csv(file = 'asmd_manul_all.csv', x = asmd_manul_all[,2:8])
 
 # obtain asmd from bal.tab function
+plot_dat2<-dat_all_crete
+plot_dat2$trt<-factor(plot_dat2$trt)
+
 plot_allcrete_ASMD_baltab <-  data.frame(
   Variable = rownames(bal.tab(allcrete_formula, data = plot_dat2, estimand = "ATE",
                               stats = c("mean.diffs"), weights = rep(1, nrow(plot_dat2)))$Balance.Across.Pairs),
@@ -2288,57 +1737,5 @@ dev.off()
 # save gasmd_all
 write.csv(file = 'gasmd_all.csv',x=plot_dat2.1[,1:7])
 
-# save gasmd_crete_bi_not_std
-plot_gasmd_crete_not_std<-data.frame(datcrete_con_weight$Imbalance_bi_notstd)
-write.csv(file = 'gasmd_crete_bi_not_std.csv',x=plot_gasmd_crete_not_std[,1:8])
-
-# save gasmd_all_bi_not_std
-plot_gasmd_all_not_std<-data.frame(allcrete_con_weight$Imbalance_bi_notstd)
-write.csv(file = 'gasmd_all_bi_not_std.csv',x=plot_gasmd_all_not_std[,1:7])
-
-# save asmd_crete_bin_std
-plot_asmd_crete_bin_std<-data.frame(datcrete_con_weight$MAXASMD_bin_std)
-write.csv(file = 'asmd_crete_bin_std.csv',x=plot_asmd_crete_bin_std[,1:8])
-
-# save asmd_all_bi_not_std
-plot_asmd_all_bin_std<-data.frame(allcrete_con_weight$MAXASMD_bin_std)
-write.csv(file = 'asmd_all_bin_std.csv',x=plot_asmd_all_bin_std[,1:7])
-
-#save rmst difference for important variable
-
-tau_list <- list(
-  ps_tau1 = ps_tau1,
-  cbps_tau1 = cbps_tau1,
-  energy_tau1 = energy_tau1,
-  mb_tau1 = mb_tau1,
-  ebal_tau1 = ebal_tau1,
-  no_tau1 = no_tau1,
-  kernel_tau1 = kernel_tau1,
-  MDABW_tau1 = MDABW_tau1
-)
 
 
-for (name in names(tau_list)) {
-  write.csv(tau_list[[name]], 
-            file = paste0(name, "_imp_rmstdiff.csv"), 
-            row.names = FALSE)
-}
-
-#save rmst difference for all variable
-
-tau_allcrete_list <- list(
-  ps_tau_allcrete1 = ps_tau_allcrete1,
-  cbps_tau_allcrete1 = cbps_tau_allcrete1,
-  energy_tau_allcrete1 = energy_tau_allcrete1,
-  mb_tau_allcrete1 = mb_tau_allcrete1,
-  ebal_tau_allcrete1 = ebal_tau_allcrete1,
-  no_tau_allcrete1 = no_tau_allcrete1,
-  MDABW_tau_allcrete1 = MDABW_tau_allcrete1
-)
-
-
-for (name in names(tau_allcrete_list)) {
-  write.csv(tau_allcrete_list[[name]], 
-            file = paste0(name, "_all_rmstdiff.csv"), 
-            row.names = FALSE)
-}
