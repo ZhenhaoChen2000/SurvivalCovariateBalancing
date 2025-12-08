@@ -5,4 +5,7 @@
 - Bad_PH.R: scenarios with bad overlap covariates and ph outcomes
 - Bad_nonPH.R: scenarios with bad overlap covariates and non-ph outcomes
 ## **hcc**
-- get_diff_se_ci.R: 
+- get_diff_se_ci.R: the function for estimating RMST difference, sd and confidence interval
+- hcc.csv: synthetic hepatocellular carcinoma data with noise, for illustration purpose.
+- hcc_real.R: the main function
+## **colon**
