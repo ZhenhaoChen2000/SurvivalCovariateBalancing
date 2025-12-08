@@ -9,3 +9,5 @@
 - hcc.csv: synthetic hepatocellular carcinoma data with noise, for illustration purpose.
 - hcc_real.R: the main function
 ## **colon**
+- colon_cross_etype1_final.R: reccurence event
+- colon_cross_etype2_final.R: death event
