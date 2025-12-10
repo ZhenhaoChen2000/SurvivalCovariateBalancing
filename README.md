@@ -1,4 +1,5 @@
 # **Covariate Balancing and Treatment Effect Estimation in Multi-arm Observational Studies**
+This code is executed under R version 4.5.0. To solve the optimization problem in sbw, the default solver requires 'osqp' packages, which may require to install cmake.
 ## **simulation**
 - Good_PH.R: scenarios with good overlap covariates and ph outcomes
 - Good_nonPH.R: scenarios with good overlap covariates and non-ph outcomes
